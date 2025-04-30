@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+/*- Общие стили */
+
+* {
+    box-sizing: border-box;
+}
+h1 {
+    font-size: 84px;
+    margin: 0;
+    padding: 10px 0px;
+    font-family: 'Forum', serif;
+}
+
+h2 {
+    font-size: 60px;
+    margin: 0;
+    padding: 0px 0px;
+    font-family: 'Forum', serif;
+}
+
+h5 {
+    font-size: 20px;
+    margin: 0;
+    padding: 20px 0px;
+    color: #ffffff;
+}
+body {
+    margin: 0;
+    background-color: #fff;
+    font-family: "Arimo", sans-serif;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.btn {
+    border: 2px solid #333C57;
+    border-radius: 5px;
+    color: #333C57;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.4s;
+}
+
+.btn:hover {
+    background-color: #333C57;
+    color:#fff
+}
+.forum-regular {
+    font-family: "Forum", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+/* Шапочка */
+
+.header {
+}
+
+.header__up {
+    margin: 10px 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: #333C57;
+}
+
+.header__list {
+    font-size: 20px;
+    margin: 50px;
+    display: flex;
+    gap: 30px;
+}
+
+.header__list a {
+    opacity: 0.7;
+    transition: 0.4s;
+}
+.header__list a:hover {
+    font-weight: bold;
+    opacity: 1;
+}
+
+
+/*  Приветственная секция */
+
+.welcome__block {
+    margin:  0px 85px;
+    letter-spacing: 0.1em;
+    color: #fff;
+}
+
+.welcome {
+    background-image: url("/static/main/img/firstPage/welcome2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 240px 0px;
+}
+
+.welcome .btn {
+    border: 3px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 50px;
+    font-weight: bold;
+    transition: 0.9s;
+}
+
+.welcome .btn:hover {
+    border: 3px solid #333C57;
+}
+
+.welcome_description {
+    width: 400px;
+}
+
+
