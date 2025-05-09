@@ -1,0 +1,27 @@
+{% extends 'account/acctemp.html' %}
+
+{% block content %}
+<div class="historyblock">
+    <div class="statistics">
+        <div class="countertours">
+            <h1><i class="fa-solid fa-route"></i> Мои поездки</h1>
+            <span>0</span>
+        </div>
+    
+        <div class="countercountries">
+            <h1> <i class="fa-solid fa-earth-americas"></i> Cтраны</h1>
+            <span>0</span>
+        </div>
+    </div>
+
+    <div class="booking">
+        <h1>Мои бронирования</h1>
+        <div class="historycontent">
+            <h2>Пока тут пусто, но это легко исправить!</h2>
+            <a href="{% url 'login'%}" class="btn">Создать тур своей мечты</a> 
+        </div>
+    </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -6,8 +6,17 @@
 * {
     box-sizing: border-box;
 }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
 h1 {
-    font-size: 84px;
+    font-size: 87px;
     margin: 0;
     padding: 10px 0px;
     font-family: 'Forum', serif;
@@ -30,6 +39,7 @@ body {
     margin: 0;
     background-color: #fff;
     font-family: "Arimo", sans-serif;
+    overflow: hidden;
 }
 
 a {
@@ -109,9 +119,12 @@ ul {
     background-image: url("/static/main/img/firstPage/welcome2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
     padding: 240px 0px;
+    min-height: 100vh;
+    width: 100%;
+    position: relative; 
 }
-
 .welcome .btn {
     border: 3px solid #ffffff;
     border-radius: 5px;

@@ -1,0 +1,23 @@
+{% extends 'authentication/authtemp.html' %}
+{% load static %}
+
+{% block content %}
+<div class="authpage">
+    <div class="authblock">
+        <h2>Вход в личный кабинет</h2>
+        <form action="{% url 'login' %}" method="post">
+            <div class="form-group">
+                <label for="email">Электронная почта</label>
+                <input type="email" id="email" name="email" class="form-control" required />
+            </div>    
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn" id="loginBtn">Войти в систему</button>
+        </form>
+            <p>Нет аккаунта? <a href="registration">Зарегистрируйтесь</a>.</p>
+    </div>
+    <img src="{% static 'authentication/img/1.jpg'%}" alt="">
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'acc/css/acc.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.7.2/css/all.css" />
+    <title>Турагенство ВокругСвета</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__up">
+            <img src="{% static 'main/img/firstPage/logo.png' %}" alt="" class="logo" width="210" />
+        </div>
+        <nav class="header__nav">
+            <ul class="header__list nav">
+                <li class="nav-item"><a class="nav-link" href="#!"><i class="fa-solid fa-house"></i> ГЛАВНАЯ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!"><i class="fa-solid fa-fire"></i> ПОПУЛЯРНЫЙ ВЫБОР</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!"><i class="fa-solid fa-comments"></i> ОТЗЫВЫ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="sidenav">
+            <img src="{% static 'acc/img/Genericavatar.png'%}" alt="" class = "avatar">
+            <a href="{% url 'data'%}">Мои данные</a>
+            <a href="{% url 'history'%}">История туров</a>
+        </div>      
+        <div class="maincontent">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

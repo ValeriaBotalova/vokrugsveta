@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+
+/* Это надо пихнуть куда-то в общее */
+* {
+    box-sizing: border-box;
+}
+
+.forum-regular {
+    font-family: "Forum", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header a {
+    color: #fff;
+}
+
+ul {
+    list-style: none;
+}
+
+body {
+    margin: 0;
+    background-color: #fff;
+    font-family: "Arimo", sans-serif;
+    height: 100%;
+    overflow: hidden;
+}
+
+.header {
+    position: relative;
+    z-index: 10; 
+    background-color: white;
+}
+
+.header__up {
+    margin: 10px 85px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    background-color: #333C57;
+}
+
+.header__list {
+    font-size: 20px;
+    margin: 50px;
+    display: flex;
+    gap: 30px;
+}
+
+.header__list a {
+    opacity: 0.7;
+    transition: 0.4s;
+}
+.header__list a:hover {
+    font-weight: bold;
+    opacity: 1;
+}
+
+/*Вот это все общее да-да*/
+
+h1 {
+    font-size: 84px;
+    margin: 0;
+    padding: 10px 0px;
+    font-family: 'Forum', serif;
+}
+
+h2 {
+    font-size: 60px;
+    margin: 0;
+    padding: 0px 0px;
+    font-family: 'Forum', serif;
+    color: #333C57;
+    text-align: center;
+}
+
+p {
+    font-size: 20px;
+}
+label {
+    font-size: 16px;
+}
+
+.authpage {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 100vh; 
+}
+
+.authblock {
+    flex: 1;
+    width: 90%;
+    padding: 20px;
+    box-shadow: 12px 12px 2px 1px #333C57;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column; 
+    overflow: auto;
+}
+
+.authblock h1, .authblock p, .authblock form {
+    width: 100%;
+    text-align: center; 
+    margin-bottom: 20px; 
+    padding: 10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+form .form-group {
+    margin-bottom: 15px; 
+    width: 80%; 
+}
+
+.form-control {
+    width: 100%; 
+    padding: 10px;
+    font-size: 16px;
+}
+
+.authpage img {
+    width: 50%;
+    height: 100vh; 
+    object-fit: cover;
+}
+
+
+.authpage input {
+    display: block;
+    padding: 10px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #bdbdbd;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.authpage input:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #bdbdbd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+}
+
+.btn {
+    border: 2px solid #333C57;
+    border-radius: 5px;
+    color: #333C57;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: 0.4s;
+    font-size: 30px;
+}
+
+.btn:hover {
+    background-color: #333C57;
+    color:#fff
+}
+
+.regcell {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; 
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+
+.gender-label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+
+.gender-option {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+}
+
+
+.gender-radio {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.gender-radio input[type="radio"] {
+    width: 20px;
+    height: 20px;
+}
