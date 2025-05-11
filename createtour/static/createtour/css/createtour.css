@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Forum&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
 
-/*- Общие стили */
-
 * {
     box-sizing: border-box;
 }
@@ -46,7 +44,7 @@ h5 {
 }
 body {
     margin: 0;
-    background-color: #fff;
+    background-color: white;
     font-family: "Arimo", sans-serif;
 }
 
@@ -77,8 +75,6 @@ ul {
     font-weight: 400;
     font-style: normal;
 }
-
-
 /* Шапочка */
 
 
@@ -112,108 +108,67 @@ ul {
     opacity: 1;
 }
 
-
-/*  Приветственная секция */
-
-.welcome__block {
-    margin:  0px 85px;
-    letter-spacing: 0.1em;
-    color: #fff;
+.createtour {
+    margin: 10px 85px;
+    display: flex;
 }
-
-.welcome {
-    background-image: url("/static/main/img/firstPage/welcome2.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    padding: 240px 0px;
-    min-height: 100vh;
+.hotels_list {
     width: 100%;
-    position: relative; 
-}
-.welcome .btn {
-    border: 3px solid #ffffff;
-    border-radius: 5px;
-    color: #ffffff;
-    font-size: 50px;
-    font-weight: bold;
-    transition: 0.9s;
+
 }
 
-.welcome .btn:hover {
-    border: 3px solid #333C57;
-}
-
-.welcome_description {
-    width: 400px;
-}
-
-
-/* Секция с популярными странами */
-.popular {
-    text-align: center;
-    margin: 30px 85px;
-    align-items: center;
-}
-.country {
+.hotel {
+    margin-left: 20px;
     display: flex;
-    margin: 30px 0px;
-    text-align: left;
-    justify-content: space-between;
-    gap: 20px;
-    box-sizing: border-box;
     border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+.hotel img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+
+}
+.description {
+    margin: 10px;
+    border-right: 1px solid rgb(190, 190, 190);
+    padding: 10px;
 }
 
-.country h1 {
-    color:#333C57;
-    font-weight: lighter;
-    padding: 0;
-}
-
-.country p {
-    font-size: 17px;
-    color:#333C57;
-    font-weight: lighter;
-    font-style: italic;
-    padding: 0;
-    padding: 20px 0px;
-}
-
-.country h3 {
-    color:#333C57;
-    font-weight: lighter;
-    margin-top: 20px;
-    font-size: 30px;
-    padding: 0;
-}
-
-.country .btn {
-    font-size: 40px;
-}
-
-
-/* Подвальчик */
-
-footer {
-    background-color: #333C57;
+.raiting {
+    border: 2px solid #333C57;
+    width: 70px;
+    padding: 3px;
     text-align: center;
-    padding: 50px;
 }
 
-.socialmedia {
-    font-size: 30px;
-    margin:10px 0px;
-    opacity: 0.7;
-    display: flex;      
-    justify-content: center; 
-    gap: 30px;         
+.confirm {
+    margin-top: auto;
+    margin-bottom: 20px;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    font-size: 20px;
-    opacity: 0.7;
+
+.filters {
+}
+.countryfilter, .ratingfilter {
+    padding: 10px;
+    margin: 10px;
+    border-top: 1px solid rgb(190, 190, 190);
+    border-bottom: 1px solid rgb(190, 190, 190);
+
+}
+.form-select {
+}
+.stars {
+    color: goldenrod;
+
+}
+.form-label {
+}
+.form-check {
+}
+.btn {
+}
+.btn-primary {
 }

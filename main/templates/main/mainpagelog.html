@@ -19,11 +19,11 @@
                 <h3>{{ country.short }}</h3>
                 <h1>{{ country.name }}</h1>
                 <p>{{ country.description }}</p>
-                <a href="{% url 'login'%}" class="btn">Составить тур </a> 
+                <a href="{% url 'hotels'%}" class="btn">Выбрать отель</a> 
             </div>
         </div>
     {% endfor %}
-    <a href="{% url 'login'%}" class="btn">Посмотреть все варианты </a> 
+    <a href="{% url 'hotels'%}" class="btn">Посмотреть все варианты </a> 
 
 </section>
 

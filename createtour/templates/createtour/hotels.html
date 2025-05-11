@@ -1,0 +1,57 @@
+{% extends 'createtour/tempcr.html' %}
+{% load static %}
+
+{% block content %}
+<section class="createtour">
+    <div class="filters">
+        <form method="get" id="filter">
+            <div class="countryfilter">
+                <label>Страна</label>
+                <select class="form-select" id="country" name="country">
+                    <option value="">Все страны</option>
+                    {% for country in countries %}
+                    <option value="{{ country }}">{{ country }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="ratingfilter">
+                <label class="form-label">Минимальный рейтинг</label>
+                <div class="form-check">
+                    <input type="radio" name="rating" id="ratingAny" value="" checked>
+                    <label>Любой рейтинг</label>
+                </div>
+                <div class="form-check">
+                    <input  type="radio" name="rating" id="rating3" value="3">
+                    <label class = "stars">★★★ </label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" name="rating" id="rating4" value="4">
+                    <label  class = "stars" >★★★★</label>
+                </div>
+                <div class="form-check">
+                    <input  type="radio" name="rating" id="rating5" value="5">
+                    <label  class = "stars" >★★★★★</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Применить фильтры</button>
+        </form>
+    </div>
+    <div class="hotels_list">
+        {% for hotel in hotels %}
+        <div class="hotel">
+            <img src="{{ hotel.photo.url }}" alt="">
+            <div class="description">
+                <i class="fa-solid fa-location-dot"></i> <span>{{ hotel.country }}</span> <span>,</span> <span>{{ hotel.city }}</span>
+                <h2>{{ hotel.name }}</h2>
+                <p class="raiting">{{ hotel.rating }} <span class="stars">★</span></p>
+            </div>
+
+            <div class="confirm">
+                <a href="#" class="btn"></i>Выбрать комнату</a>   
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

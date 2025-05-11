@@ -158,11 +158,13 @@ class HotelInTour(models.Model):
 
 
 class Hotels(models.Model):
-    name = models.CharField('Название',max_length=255)
-    phone = models.CharField('Номер телефона',max_length=20, blank=True, null=True)
-    country = models.CharField('Страна',max_length=100, blank=True, null=True)
-    address = models.TextField('Адрес',blank=True, null=True)
-    rating = models.DecimalField('Рейтинг',max_digits=3, decimal_places=2, blank=True, null=True)
+    name = models.CharField('Название', max_length=255)
+    phone = models.CharField('Номер телефона', max_length=20, blank=True, null=True)
+    country = models.CharField('Страна', max_length=100, blank=True, null=True)
+    city = models.CharField('Город', max_length=255, blank=True, null=True)
+    street = models.CharField('Улица', max_length=255, blank=True, null=True)
+    house = models.CharField('Дом', max_length=20, blank=True, null=True)
+    rating = models.DecimalField('Рейтинг', max_digits=3, decimal_places=2, blank=True, null=True)
     photo = models.ImageField(upload_to="photos/hotels/")
 
     class Meta:
@@ -186,27 +188,62 @@ class Reviews(models.Model):
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
 
-
-class RoomServices(models.Model):
-    room = models.ForeignKey('Rooms', verbose_name="Комната", on_delete=models.DO_NOTHING, blank=True, null=True)
-    service_type = models.CharField("Тип услуги", max_length=50, blank=True, null=True)
-    description = models.TextField("Описание", blank=True, null=True)
+class Service(models.Model):
+    SERVICE_TYPES = [
+        ('wifi', 'Wi-Fi'),
+        ('breakfast', 'Завтрак'),
+        ('cleaning', 'Уборка'),
+        ('pool', 'Бассейн'),
+        ('gym', 'Тренажерный зал'),
+        ('spa', 'SPA'),
+        ('transfer', 'Трансфер'),
+    ]
+    
+    name = models.CharField("Название услуги", max_length=100)
+    service_type = models.CharField("Тип услуги", max_length=50, choices=SERVICE_TYPES)
 
     class Meta:
-        managed = False
+        db_table = 'services'
+        verbose_name = 'Услуга'
+        verbose_name_plural = 'Услуги'
+
+    def __str__(self):
+        return self.name
+
+
+class RoomServices(models.Model):
+    room = models.ForeignKey('Rooms', verbose_name="Комната", on_delete=models.CASCADE)
+    service = models.ForeignKey('Service', verbose_name="Услуга", on_delete=models.CASCADE)
+    included_in_price = models.BooleanField("Включено в стоимость", default=False)
+    
+    class Meta:
         db_table = 'room_services'
         verbose_name = 'Услуга комнаты'
         verbose_name_plural = 'Услуги комнат'
+        unique_together = (('room', 'service'),)
 
 
 class Rooms(models.Model):
-    status = models.CharField("Статус", max_length=50, blank=True, null=True)
+    STATUS_CHOICES = [
+        ('booked', 'Забронирована'),
+        ('available', 'Свободна'),
+        # Можно добавить другие статусы при необходимости
+    ]
+    
+    status = models.CharField(
+        "Статус",
+        max_length=50,
+        choices=STATUS_CHOICES,
+        default='available',  # Установите статус по умолчанию
+        blank=True,
+        null=True
+    )
     room_number = models.CharField("Номер комнаты", max_length=10, blank=True, null=True)
-    services = models.TextField("Услуги", blank=True, null=True)
     floor = models.IntegerField("Этаж", blank=True, null=True)
     hotel = models.ForeignKey('Hotels', verbose_name="Отель", on_delete=models.DO_NOTHING, blank=True, null=True)
     bed_count = models.IntegerField("Количество кроватей", blank=True, null=True)
     price = models.DecimalField("Цена", max_digits=10, decimal_places=2, blank=True, null=True)
+    photo = models.ImageField(upload_to="photos/hotel/rooms")
 
     class Meta:
         managed = False

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'createtour',
     'account',
     'core',
     'main',
@@ -128,6 +129,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "main/static/main",
     BASE_DIR / "authentication/static/authentication",
+    BASE_DIR / "account/static/acc",
+    BASE_DIR / "createtour/static/createtour",
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
