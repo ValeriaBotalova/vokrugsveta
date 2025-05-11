@@ -218,3 +218,22 @@ form .form-group {
     width: 20px;
     height: 20px;
 }
+
+.messages {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.alert {
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 1px solid transparent;
+}
+
+.alert-error {
+    color: #333C57;
+    background-color: #d7dcf8;
+    border-color: #c9c6f5;
+}

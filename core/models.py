@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Agent(models.Model):
@@ -82,11 +83,13 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
+User = get_user_model()
+
 class Clients(models.Model):
-    user = models.OneToOneField(AuthUser, on_delete=models.CASCADE, verbose_name="Пользователь")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     first_name = models.CharField("Имя", max_length=100)
     last_name = models.CharField("Фамилия", max_length=100)
-    date_of_birth = models.DateField("Дата рождения", blank=True, null=True)
+    date_of_birth = models.DateField("Дата рождения", null=True, blank=True)
     phone = models.CharField("Телефон", max_length=20, blank=True, null=True)
     email = models.CharField("Электронная почта", max_length=255, blank=True, null=True)
     gender = models.CharField("Пол", max_length=10, choices=[('male', 'Мужской'), ('female', 'Женский')], blank=True, null=True)

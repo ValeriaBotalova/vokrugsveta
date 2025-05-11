@@ -29,17 +29,25 @@ h2 {
     font-family: 'Forum', serif;
 }
 
+h3 {
+    font-size: 60px;
+    margin: 0;
+    padding: 0px 0px;
+    font-family: 'Forum', serif;
+    color: #333C57;
+}
+
+
 h5 {
     font-size: 20px;
     margin: 0;
     padding: 20px 0px;
-    color: #ffffff;
+    color: #333C57;
 }
 body {
     margin: 0;
     background-color: #fff;
     font-family: "Arimo", sans-serif;
-    overflow: hidden;
 }
 
 a {
@@ -143,3 +151,49 @@ ul {
 }
 
 
+/* Секция с популярными странами */
+.popular {
+    text-align: center;
+    margin: 30px 85px;
+    align-items: center;
+}
+.country {
+    display: flex;
+    margin: 20px 0px;
+    text-align: left;
+    justify-content: space-between;
+    gap: 20px;
+    box-sizing: border-box;
+    border: 1px solid rgb(190, 190, 190);
+}
+
+.country h1 {
+    color:#333C57;
+    font-weight: lighter;
+    padding: 0;
+}
+
+.country p {
+    font-size: 17px;
+    color:#333C57;
+    font-weight: lighter;
+    font-style: italic;
+    padding: 0;
+    padding: 20px 0px;
+}
+
+.country h3 {
+    color:#333C57;
+    font-weight: lighter;
+    margin-top: 20px;
+    font-size: 30px;
+    padding: 0;
+}
+
+.country .btn {
+    font-size: 40px;
+}
+
+.desc {
+
+}

@@ -1,8 +1,11 @@
 {% extends 'main/mptemp.html' %}
 
 {% block content %}
-    <h2>СОЗДАЙ ТУР</h2>
-    <h1>СВОЕЙ МЕЧТЫ</h1>
-    <a href="{% url 'login'%}" class="btn">Войти в систему</a> 
-    <h5 class="welcome_description">Ознакомиться с услугами вы можете прямо сейчас, но для закнеобходима авторизация.</h5>
+<section class="welcome">
+    <div class="welcome__block">
+        <h2>СОЗДАЙ ТУР</h2>
+        <h1>СВОЕЙ МЕЧТЫ</h1>
+        <a href="{% url 'login'%}" class="btn">Войти в систему</a> 
+    </div>
+</section>
 {% endblock %}

@@ -13,12 +13,12 @@
     <header class="header">
         <div class="header__up">
             <img src="{% static 'main/img/firstPage/logo.png' %}"   alt="" class = "logo" width="210">
-            <a href="" class="btn"><i class="fa-solid fa-user"></i>ㅤЛИЧНЫЙ КАБИНЕТ</a>    
+            <a href="{% url 'history'%}" class="btn"><i class="fa-solid fa-user"></i>ㅤЛИЧНЫЙ КАБИНЕТ</a>    
         </div>
 
             <nav class="header__nav">
                 <ul class="header__list">
-                    <li><a href="#!"><i class="fa-solid fa-house"></i>  ГЛАВНАЯ</a></li>
+                    <li><a href="{% url 'main'%}"><i class="fa-solid fa-house"></i>  ГЛАВНАЯ</a></li>
                     <li><a href="#!"><i class="fa-solid fa-fire"></i>  ПОПУЛЯРНЫЙ ВЫБОР</a></li>
                     <li><a href="#!"><i class="fa-solid fa-comments"></i>  ОТЗЫВЫ</a></li>
                 </ul>
@@ -26,11 +26,8 @@
     </header>
 
     <main class="main">
-        <section class="welcome">
-            <div class="welcome__block">
-                {% block content %}
-                {% endblock %}
-            </div>
+            {% block content %}
+            {% endblock %}
     </main>
 </body>
 </html>
