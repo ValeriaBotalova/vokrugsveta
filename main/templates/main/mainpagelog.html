@@ -12,16 +12,32 @@
 </section>
 <section class="popular">
     <h3> Популярный выбор этого сезона</h3>
-
-    <div class="country">
-        <img src="{% static 'main\img\firstPage\image3.png' %}" alt="">
-        <div class="desc">
-            <h3>"Манхэттен Средиземноморья"</h3>
-            <h1>Испания, Бенидорм</h1>
-            <p>Бенидорм — это один из самых популярных курортов Испании, расположенный на побережье Коста-Бланка. Город известен своими широкими песчаными пляжами, кристально чистым морем и яркой ночной жизнью. Бенидорм предлагает множество развлечений: аквапарки, тематические парки и разнообразные рестораны с местной кухней. Прогулки по набережной, посещение смотровых площадок и вечерние шоу сделают ваш отдых незабываемым.</p>
-            <a href="{% url 'login'%}" class="btn">Составить тур </a> 
+    {% for country in countries %}
+        <div class="country">
+            <img src="{% static country.image %}" alt="">
+            <div class="desc">
+                <h3>{{ country.short }}</h3>
+                <h1>{{ country.name }}</h1>
+                <p>{{ country.description }}</p>
+                <a href="{% url 'login'%}" class="btn">Составить тур </a> 
+            </div>
         </div>
-    </div>
+    {% endfor %}
+    <a href="{% url 'login'%}" class="btn">Посмотреть все варианты </a> 
 
 </section>
+
+<footer>
+    <div class="socialmedia">     
+        <a href="#"> <i class="fa-brands fa-twitter"></i> </a>
+        <a href="#"> <i class="fa-brands fa-vk"></i> </a>
+        <a href="#"> <i class="fa-brands fa-whatsapp"></i> </a>
+        <a href="#"> <i class="fa-brands fa-telegram"></i> </a>
+    </div>
+    <div class="row">
+        <a href="#"> <p>О "ВокругСвета"</p> </a>
+        <a href="#"> <p>Контакты</p> </a>
+        <a href="#"> <p>Политика конфиденциальности</p> </a>
+    </div>
+</footer>
 {% endblock %}
