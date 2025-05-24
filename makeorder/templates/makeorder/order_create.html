@@ -1,0 +1,70 @@
+{% extends 'createtour/tempcr.html' %}
+{% load static %}
+
+{% block content %}
+<section class="order-create">
+    <div class="container">
+        <div class="booking-card">
+            <div class="booking-header">
+                <h1>Оформление бронирования</h1>
+                <div class="hotel-rating">
+                    <i class="fas fa-star"></i>
+                    <span>{{ hotel.rating|default:"4.8" }}</span>
+                </div>
+            </div>
+            
+            <div class="hotel-info">
+                <div class="hotel-details">
+                    <h2>{{ hotel.name }}</h2>
+                    <p class="location"><i class="fas fa-map-marker-alt"></i> {{ hotel.city }}, {{ hotel.country }}</p>
+                    <div class="room-info">
+                        <p><strong>Номер:</strong> {{ room.room_number }}</p>
+                        <p><strong>Цена за ночь:</strong> <span class="price">{{ room.price }} ₽</span></p>
+                    </div>
+                </div>
+            </div>
+            
+            <form method="POST" action="{% url 'makeorder:order_create' room.id %}" class="booking-form">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="arrival_date"><i class="far fa-calendar-check"></i> Дата заезда</label>
+                        <input type="date" id="arrival_date" name="arrival_date" 
+                            min="{{ today }}" required class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="departure_date"><i class="far fa-calendar-times"></i> Дата выезда</label>
+                        <input type="date" id="departure_date" name="departure_date" 
+                            min="{{ today }}" required class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-actions centered">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-check-circle"></i> Подтвердить бронирование
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const arrival = document.getElementById('arrival_date');
+    const departure = document.getElementById('departure_date');
+    
+    arrival.addEventListener('change', function() {
+        departure.min = this.value;
+        if (departure.value && departure.value < this.value) {
+            departure.value = '';
+        }
+    });
+    
+    const today = new Date().toISOString().split('T')[0];
+    arrival.value = today;
+    arrival.dispatchEvent(new Event('change'));
+});
+</script>
+{% endblock %}

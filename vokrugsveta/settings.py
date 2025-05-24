@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_panel',
+    'makeorder',
     'createtour',
     'account',
     'core',
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'vokrugsveta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -147,3 +149,11 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'vokrugsveta.backends.EmailBackend',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'vokrug.sveta.2025@mail.ru'
+EMAIL_HOST_PASSWORD = 'GGhYHvtf6cRyBVukSqmD'
+DEFAULT_FROM_EMAIL = 'vokrug.sveta.2025@mail.ru'

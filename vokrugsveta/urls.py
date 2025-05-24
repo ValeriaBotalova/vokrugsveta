@@ -16,16 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from admin_panel.views import AdminToursView, ProcessTourView
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('admin/panel/', include('admin_panel.urls')), 
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('auth/', include('authentication.urls')),
-    path('account/', include('account.urls')) ,
-    path('createtour/', include('createtour.urls')) ,
+    path('account/', include('account.urls')),
+    path('createtour/', include('createtour.urls')),
+    path('order/', include('makeorder.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

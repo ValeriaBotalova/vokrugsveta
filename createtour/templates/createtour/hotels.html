@@ -3,55 +3,105 @@
 
 {% block content %}
 <section class="createtour">
-    <div class="filters">
-        <form method="get" id="filter">
-            <div class="countryfilter">
-                <label>Страна</label>
-                <select class="form-select" id="country" name="country">
-                    <option value="">Все страны</option>
-                    {% for country in countries %}
-                    <option value="{{ country }}">{{ country }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+    <div class="filters-container">
+        <div class="filters">
+            <h3>Фильтры отелей</h3>
+            <form method="get" id="filter-form">
+                <div class="countryfilter filter-group">
+                    <label class="filter-label">Страна</label>
+                    <select class="form-select" id="country" name="country">
+                        <option value="">Все страны</option>
+                        {% for country in countries %}
+                        <option value="{{ country }}" {% if request.GET.country == country %}selected{% endif %}>{{ country }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-            <div class="ratingfilter">
-                <label class="form-label">Минимальный рейтинг</label>
-                <div class="form-check">
-                    <input type="radio" name="rating" id="ratingAny" value="" checked>
-                    <label>Любой рейтинг</label>
+                <div class="ratingfilter filter-group">
+                    <label class="filter-label">Минимальный рейтинг</label>
+                    <div class="rating-options">
+                        <div class="form-check">
+                            <input type="radio" name="rating" id="ratingAny" value="" {% if not request.GET.rating %}checked{% endif %}>
+                            <label for="ratingAny">Любой рейтинг</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="rating" id="rating3" value="3" {% if request.GET.rating == "3" %}checked{% endif %}>
+                            <label for="rating3" class="stars">★★★</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="rating" id="rating4" value="4" {% if request.GET.rating == "4" %}checked{% endif %}>
+                            <label for="rating4" class="stars">★★★★</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" name="rating" id="rating5" value="5" {% if request.GET.rating == "5" %}checked{% endif %}>
+                            <label for="rating5" class="stars">★★★★★</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input  type="radio" name="rating" id="rating3" value="3">
-                    <label class = "stars">★★★ </label>
+                <div class="filter-buttons">
+                    <button type="submit" class="btn btn-apply">Применить фильтры</button>
+                    {% if request.GET.country or request.GET.rating %}
+                    <a href="?" class="btn btn-reset">Сбросить фильтры</a>
+                    {% endif %}
                 </div>
-                <div class="form-check">
-                    <input type="radio" name="rating" id="rating4" value="4">
-                    <label  class = "stars" >★★★★</label>
-                </div>
-                <div class="form-check">
-                    <input  type="radio" name="rating" id="rating5" value="5">
-                    <label  class = "stars" >★★★★★</label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Применить фильтры</button>
-        </form>
-    </div>
-    <div class="hotels_list">
-        {% for hotel in hotels %}
-        <div class="hotel">
-            <img src="{{ hotel.photo.url }}" alt="">
-            <div class="description">
-                <i class="fa-solid fa-location-dot"></i> <span>{{ hotel.country }}</span> <span>,</span> <span>{{ hotel.city }}</span>
-                <h2>{{ hotel.name }}</h2>
-                <p class="raiting">{{ hotel.rating }} <span class="stars">★</span></p>
-            </div>
-
-            <div class="confirm">
-                <a href="#" class="btn"></i>Выбрать комнату</a>   
-            </div>
+            </form>
         </div>
-        {% endfor %}
+    </div>
+    
+    <div class="hotels-container">
+        <div class="hotels_list">
+            {% for hotel in hotels %}
+            <div class="hotel-card">
+                <div class="hotel-image">
+                    <img src="{{ hotel.photo.url }}" alt="">
+                </div>
+                <div class="hotel-info">
+                    <div class="description">
+                        <div class="location">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>{{ hotel.country }}, {{ hotel.city }}</span>
+                        </div>
+                        <h2 class="hotel-name">{{ hotel.name }}</h2>
+                        <div class="rating-badge">
+                            <span class="rating-value">{{ hotel.rating }}</span>
+                            <span class="stars">★</span>
+                        </div>
+                    </div>
+                    <div class="hotel-actions">
+                        <a href="{% url 'rooms' hotel.id %}" class="btn btn-book">Выбрать комнату</a>   
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-results">
+                <p>По вашему запросу отелей не найдено.</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const form = document.getElementById('filter-form');
+    const inputs = form.querySelectorAll('input, select');
+    
+    inputs.forEach(input => {
+        input.addEventListener('change', function() {
+            form.submit();
+        });
+    });
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const params = new URLSearchParams(formData).toString();
+        window.history.pushState({}, '', `${window.location.pathname}?${params}`);
+        
+        window.location.search = params;
+    });
+});
+</script>
+
 {% endblock %}

@@ -1,27 +1,48 @@
 {% extends 'account/acctemp.html' %}
+{% load static %}
 
 {% block content %}
 <div class="historyblock">
     <div class="statistics">
         <div class="countertours">
             <h1><i class="fa-solid fa-route"></i> Мои поездки</h1>
-            <span>0</span>
+            <span>{{ tours_count }}</span>
         </div>
     
         <div class="countercountries">
-            <h1> <i class="fa-solid fa-earth-americas"></i> Cтраны</h1>
-            <span>0</span>
+            <h1><i class="fa-solid fa-earth-americas"></i> Страны</h1>
+            <span>{{ countries_count }}</span>
         </div>
     </div>
 
     <div class="booking">
         <h1>Мои бронирования</h1>
-        <div class="historycontent">
-            <h2>Пока тут пусто, но это легко исправить!</h2>
-            <a href="{% url 'main' %}" class="btn">Создать тур своей мечты</a> 
+        <div class="history-container">
+            <div class="history-grid">
+                {% if tours %}
+                    {% for tour in tours %}
+                    <div class="booking-card">
+                        <div class="booking-header">
+                            <h3>Бронирование №{{ tour.id }}</h3>
+                            <span class="status-{{ tour.status }}">
+                                {{ tour.get_status_display }}
+                            </span>
+                        </div>
+                        <div class="booking-details">
+                            <p><i class="fa-solid fa-hotel"></i> {{ tour.hotel.name }}, {{ tour.hotel.city }}</p>
+                            <p><i class="fa-solid fa-calendar-days"></i> {{ tour.arrival_date|date:"d.m.Y" }} - {{ tour.departure_date|date:"d.m.Y" }}</p>
+                            <p><i class="fa-solid fa-ruble-sign"></i> {{ tour.price }} ₽</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="no-bookings">
+                        <h2>У вас пока нет бронирований</h2>
+                        <a href="{% url 'hotels' %}" class="btn">Найти отель</a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-    </div>
-
     </div>
 </div>
 {% endblock %}

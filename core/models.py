@@ -2,16 +2,6 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
-class Agent(models.Model):
-    name = models.CharField("Имя", max_length=255)
-    email = models.CharField("Электронная почта", unique=True, max_length=255)
-    phone = models.CharField("Телефон", max_length=20, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'agent'
-        verbose_name = 'Туроператор'
-        verbose_name_plural = 'Туроператоры'
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -227,14 +217,13 @@ class Rooms(models.Model):
     STATUS_CHOICES = [
         ('booked', 'Забронирована'),
         ('available', 'Свободна'),
-        # Можно добавить другие статусы при необходимости
     ]
     
     status = models.CharField(
         "Статус",
         max_length=50,
         choices=STATUS_CHOICES,
-        default='available',  # Установите статус по умолчанию
+        default='available',
         blank=True,
         null=True
     )
@@ -253,15 +242,35 @@ class Rooms(models.Model):
 
 
 class Tours(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'На рассмотрении'),
+        ('confirmed', 'Подтвержден'),
+        ('canceled', 'Отклонён'),
+        ('completed', 'Завершен'),
+    ]
+    client = models.ForeignKey(
+        'Clients', 
+        verbose_name="Клиент", 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True
+    )
+    
     country = models.CharField("Страна", max_length=100, blank=True, null=True)
     arrival_date = models.DateField("Дата прибытия", blank=True, null=True)
     departure_date = models.DateField("Дата выезда", blank=True, null=True)
     price = models.DecimalField("Цена", max_digits=10, decimal_places=2, blank=True, null=True)
-    status = models.CharField("Статус", max_length=50, blank=True, null=True)
     rating = models.DecimalField("Рейтинг", max_digits=3, decimal_places=2, blank=True, null=True)
     hotel = models.ForeignKey('Hotels', verbose_name="Отель", on_delete=models.DO_NOTHING, blank=True, null=True)
     transport = models.ForeignKey('Transport', verbose_name="Транспорт", on_delete=models.DO_NOTHING, blank=True, null=True)
-    agent = models.ForeignKey('Agent', verbose_name="Агент", on_delete=models.DO_NOTHING, blank=True, null=True)
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending',
+        db_comment='Статус бронирования'
+    )
+    
 
     class Meta:
         managed = False
@@ -271,7 +280,12 @@ class Tours(models.Model):
 
 
 class Transport(models.Model):
-    type = models.CharField("Тип транспорта", max_length=50, blank=True, null=True)
+    TRANSPORT_CHOICES = [
+        ('bus', 'Автобус'),
+        ('plane', 'Самолет'),
+        ('train', 'Поезд'),
+    ]   
+    transport_type = models.CharField("Транспорт", max_length=50, choices=TRANSPORT_CHOICES)
     cost = models.DecimalField("Стоимость", max_digits=10, decimal_places=2, blank=True, null=True)
 
     class Meta:
@@ -280,13 +294,3 @@ class Transport(models.Model):
         verbose_name = 'Транспорт'
         verbose_name_plural = 'Транспорты'
 
-
-class TransportInTour(models.Model):
-    transport = models.ForeignKey('Transport', verbose_name="Транспорт", on_delete=models.DO_NOTHING, blank=True, null=True)
-    tour = models.ForeignKey('Tours', verbose_name="Тур", on_delete=models.DO_NOTHING, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'transport_in_tour'
-        verbose_name = 'Транспорт в туре'
-        verbose_name_plural = 'Транспорты в туре'
