@@ -3,6 +3,15 @@
 {% block content %}
 <h1>Управление бронированиями</h1>
 
+<div class="export-buttons mb-3">
+    <a href="{% url 'admin_panel:export' 'xlsx' %}" class="btn btn-info">
+        <i class="fas fa-file-excel"></i> Экспорт в Excel
+    </a>
+    <a href="{% url 'admin_panel:export' 'html' %}" class="btn btn-secondary">
+        <i class="fas fa-file-code"></i> Экспорт в HTML
+    </a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
