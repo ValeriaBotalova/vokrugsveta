@@ -12,6 +12,15 @@
     </a>
 </div>
 
+<div class="admin-actions mb-3">
+    <a href="?show_deleted=1" class="btn btn-secondary">
+        <i class="fas fa-trash"></i> Показать удаленные
+    </a>
+    <a href="?" class="btn btn-primary">
+        <i class="fas fa-eye"></i> Показать активные
+    </a>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -25,19 +34,39 @@
     </thead>
     <tbody>
         {% for tour in tours %}
-        <tr>
+        <tr class="{% if tour.is_deleted %}table-danger{% endif %}">
             <td>{{ tour.id }}</td>
             <td>{{ tour.client.user.get_full_name }}</td>
             <td>{{ tour.hotel.name }}</td>
             <td>{{ tour.arrival_date }} - {{ tour.departure_date }}</td>
-            <td>{{ tour.get_status_display }}</td>
             <td>
-                {% if tour.status == 'pending' %}
-                <form method="post" action="{% url 'admin_panel:process' tour.id %}">
-                    {% csrf_token %}
-                    <button type="submit" name="action" value="confirm" class="btn btn-success">Подтвердить</button>
-                    <button type="submit" name="action" value="admin_cancel" class="btn btn-warning">Отклонить</button>
-                </form>
+                {{ tour.get_status_display }}
+                {% if tour.is_deleted %}
+                    <span class="badge bg-danger">Удален</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if not tour.is_deleted %}
+                    {% if tour.status == 'pending' %}
+                    <form method="post" action="{% url 'admin_panel:process' tour.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="confirm" class="btn btn-success btn-sm">Подтвердить</button>
+                        <button type="submit" name="action" value="admin_cancel" class="btn btn-warning btn-sm">Отклонить</button>
+                    </form>
+                    {% endif %}
+                    <form method="post" action="{% url 'admin_panel:delete' tour.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'admin_panel:restore' tour.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success btn-sm">Восстановить</button>
+                    </form>
+                    <form method="post" action="{% url 'admin_panel:delete' tour.id %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить навсегда</button>
+                    </form>
                 {% endif %}
             </td>
         </tr>

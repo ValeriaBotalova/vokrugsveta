@@ -1,6 +1,8 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth import get_user_model
-
+from django.core.exceptions import ValidationError
+import re
 
 
 class AuthGroup(models.Model):
@@ -89,6 +91,24 @@ class Clients(models.Model):
         db_table = 'clients'
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+    def clean(self):
+        if self.email and not re.match(r'^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$', self.email):
+            raise ValidationError({'email': 'Некорректный формат email'})
+        
+        if self.phone and not re.match(r'^[0-9]{11}$', self.phone):
+            raise ValidationError({'phone': 'Телефон должен содержать 11 цифр'})
+        
+        if self.date_of_birth:
+            from django.utils import timezone
+            from datetime import timedelta
+            if self.date_of_birth > timezone.now().date():
+                raise ValidationError({'date_of_birth': 'Дата рождения не может быть в будущем'})
+            if timezone.now().date() - self.date_of_birth < timedelta(days=365*18):
+                raise ValidationError({'date_of_birth': 'Клиент должен быть старше 18 лет'})
+    
+    def save(self, *args, **kwargs):
+        self.clean() 
+        super().save(*args, **kwargs)
 
 
 class DjangoAdminLog(models.Model):
@@ -263,6 +283,8 @@ class Tours(models.Model):
     rating = models.DecimalField("Рейтинг", max_digits=3, decimal_places=2, blank=True, null=True)
     hotel = models.ForeignKey('Hotels', verbose_name="Отель", on_delete=models.DO_NOTHING, blank=True, null=True)
     transport = models.ForeignKey('Transport', verbose_name="Транспорт", on_delete=models.DO_NOTHING, blank=True, null=True)
+    is_deleted = models.BooleanField(default=False, verbose_name="Удалено")
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     status = models.CharField(
         max_length=20,
@@ -270,8 +292,6 @@ class Tours(models.Model):
         default='pending',
         db_comment='Статус бронирования'
     )
-    
-
     class Meta:
         managed = False
         db_table = 'tours'

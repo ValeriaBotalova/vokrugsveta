@@ -13,6 +13,8 @@ from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_decode
 from django.contrib import messages
 from django.utils.http import urlsafe_base64_decode
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 
 def login_view(request):
@@ -63,6 +65,7 @@ class CustomPasswordResetConfirmView(PasswordResetConfirmView):
 User = get_user_model()
 
 def registration_view(request):
+    context = {}
     if request.method == 'POST':
         try:
             email = request.POST['email']
@@ -96,20 +99,19 @@ def registration_view(request):
                 gender=gender
             )
 
-
             login(request, user)
-
             return redirect('history')
 
+        except IntegrityError as e:
+            context['error_message'] = 'Ошибка базы данных: ' + str(e)
+        except ValidationError as e:
+            context['error_message'] = 'Ошибка валидации: ' + str(e)
         except Exception as e:
-            print(f"Ошибка регистрации: {str(e)}")  
+            context['error_message'] = 'Ошибка регистрации: ' + str(e)
             if 'user' in locals() and user.id:
                 user.delete()
-            return render(request, 'authentication/registration.html', {
-                'error': f'Ошибка регистрации: {str(e)}'
-            })
-    return render(request, 'authentication/registration.html')
 
+    return render(request, 'authentication/registration.html', context)
     
 def password_reset_confirm(request, uidb64, token):
     UserModel = get_user_model()
